@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class NewController extends Controller
 {
@@ -76,15 +77,16 @@ class NewController extends Controller
     // hiển thị tất cả
     public function show_news()
     {
-        $news = News::all(); 
-        $hotNews = News::where('is_hot', true)->get();
+        $news = News::paginate(6);
+        $hotNews = DB::table('news')->where('is_hot', 1)->get();
         return view('user.news', compact('news','hotNews'));
     }
-
+    
     // chi tiết tin
     public function show_ct($id)
     {
         $news = News::findOrFail($id);
+        $news->increment('views');
         return view('user.show-ct', compact('news'));
     }
 

@@ -1,28 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>News</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <meta charset="utf-8">
+    <title>@yield('title')</title>
+    <!-- mobile responsive meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="This is meta description">
+    <meta name="author" content="Themefisher">
+    <meta name="generator" content="Hugo 0.74.3" />
+    @include('user.layouts.partials.css')   
 </head>
+
+
+<!DOCTYPE html>
+<html lang="en-us">
+
 <body>
-    <header>
-        @include('user.layouts.partials.header')      
+    
+    <header class="navigation fixed-top">
+        <div class="container mb-16">
+            @include('user.layouts.partials.nav')
+        </div>
     </header>
-    <nav>
-        @include('user.layouts.partials.nav')
-    </nav>
-            
+   
+
+   
+
     <main>
         @yield('content')
     </main>
 
-    <footer>
+    <footer  class="footer">
         @include('user.layouts.partials.footer')   
     </footer>
 
-   
+    @include('user.layouts.partials.js')   
+  
 </body>
+
 </html>

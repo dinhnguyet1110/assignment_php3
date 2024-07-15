@@ -24,8 +24,10 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    $news = News::query()->latest('id')->limit(5)->get();
-    return view('welcome', compact('news'));
+    $news = News::paginate(6);
+    $hotNews = News::where('is_hot', true)->get();
+    
+    return view('welcome', compact('news', 'hotNews'));
   
 });
 
@@ -77,11 +79,11 @@ Route::middleware(['auth', 'member'])->prefix('user')->name('user.')->group(func
     
 });
 
+
 Route::get('news', [NewController::class, 'show_news'])->name('news');
 Route::get('show-ct/{id}', [NewController::class, 'show_ct'])->name('show-ct');
 Route::get('show-loai/{id}', [CategoryController::class, 'show_loai'])->name('show-loai');
 Route::get('search', [NewController::class, 'search'])->name('search');
-
 
 Route::post('/news/{id}/comments', [CommentController::class, 'store'])->name('comment');
 

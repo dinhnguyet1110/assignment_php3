@@ -1,4 +1,4 @@
-<footer class="bg-dark text-white pt-4">
+<footer class="bg-light text-dask pt-4">
     <div class="container">
       <div class="row">
         <div class="col-md-4">
@@ -19,16 +19,13 @@
           <h5>Liên hệ</h5>
           <address>
             75 Hồ Tùng Mậu, Mai dịch, Cầu Giấy, Hà Nội<br>
-            <a href="mailto:info@newssite.com" class="text-white">tintucmoingay@gmail.com</a><br>
-            <a href="tel:+1234567890" class="text-white">+123 456 7890</a>
+            <a href="" class="text-dask">tintucmoingay@gmail.com</a><br>
+            <a href="" class="text-dask">+123 456 7890</a>
           </address>
         </div>
       </div>
       
       <hr class="bg-white">
-      
-      
-      <!-- Copyright -->
       <div class="row mt-3">
         <div class="col-md-12 text-center">
           <p>&copy; 2024 Tin tức. Đinh Thị Minh Nguyệt - PH33245</p>
