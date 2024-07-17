@@ -8,7 +8,7 @@
     <meta name="description" content="This is meta description">
     <meta name="author" content="Themefisher">
     <meta name="generator" content="Hugo 0.74.3" />
-    @include('user.layouts.partials.css')   
+    @include('client.layouts.partials.css')   
 </head>
 
 
@@ -19,22 +19,19 @@
     
     <header class="navigation fixed-top">
         <div class="container mb-16">
-            @include('user.layouts.partials.nav')
+            @include('client.layouts.partials.nav')
         </div>
     </header>
-   
-
-   
 
     <main>
         @yield('content')
     </main>
 
     <footer  class="footer">
-        @include('user.layouts.partials.footer')   
+        @include('client.layouts.partials.footer')   
     </footer>
 
-    @include('user.layouts.partials.js')   
+    @include('client.layouts.partials.js')   
   
 </body>
 

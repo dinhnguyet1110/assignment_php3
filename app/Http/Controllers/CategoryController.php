@@ -77,6 +77,6 @@ class CategoryController extends Controller
 
         $category = Category::findOrFail($id);
           $news = News::where('category_id', $id)->latest()->get();
-        return view('user.show-loai', compact('category', 'news'));
+        return view('client.show-loai', compact('category', 'news'));
     }
 }

@@ -1,4 +1,4 @@
-@extends('user.layouts.app')
+@extends('client.layouts.app')
 @section('title')
     {{ $news->title }}
 @endsection

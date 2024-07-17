@@ -22,9 +22,7 @@
 
     <div class="order-2 order-lg-3 d-flex align-items-center">
         <form class="search-bar" action="{{ route('search') }}" method="GET">
-            <input  type="search" placeholder="Tìm kiếm ..." name="query"
-                aria-label="Search">
-
+            <input  type="search" placeholder="Tìm kiếm ..." name="query" aria-label="Search">
         </form>
     </div>
 </nav>

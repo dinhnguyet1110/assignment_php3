@@ -24,14 +24,10 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    $news = News::paginate(6);
-    $hotNews = News::where('is_hot', true)->get();
-    
-    return view('welcome', compact('news', 'hotNews'));
+    $news = News::all();
+    return view('welcome', compact('news'));
   
 });
-
-
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', function () {

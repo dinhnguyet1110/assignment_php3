@@ -70,7 +70,7 @@ class NewController extends Controller
     {
         $news = News::findOrFail($id);
         $news->delete();
-    
+
         return redirect()->route('admin.new.index');
     }
 
@@ -79,31 +79,30 @@ class NewController extends Controller
     {
         $news = News::paginate(6);
         $hotNews = DB::table('news')->where('is_hot', 1)->get();
-        return view('user.news', compact('news','hotNews'));
+        return view('client.news', compact('news', 'hotNews'));
     }
-    
+
     // chi tiết tin
     public function show_ct($id)
     {
         $news = News::findOrFail($id);
         $news->increment('views');
-        return view('user.show-ct', compact('news'));
+        return view('client.show-ct', compact('news'));
     }
 
     // tìm kiếm 
     public function search(Request $request)
     {
         $query = $request->input('query');
-        
+
         $news = News::where('content', 'LIKE', "%{$query}%")
-                            ->orWhere('title', 'LIKE', "%{$query}%")
-                            ->latest()
-                            ->get();
+            ->orWhere('title', 'LIKE', "%{$query}%")
+            ->latest()
+            ->get();
 
         $category = Category::where('name', 'LIKE', "%{$query}%")
-                                    ->get();
-        
-        return view('user.search', compact('news', 'category', 'query'));
+            ->get();
+
+        return view('client.search', compact('news', 'category', 'query'));
     }
-    
 }
