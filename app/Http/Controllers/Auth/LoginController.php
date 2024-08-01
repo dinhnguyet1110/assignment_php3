@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-    public function showFormLogin(){
+    public function showFormLogin()
+    {
         return view('auth.login');
     }
 
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
@@ -20,7 +22,7 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            
+
             if ($user->type == 'admin') {
                 return redirect()->route('admin.dashboard');
             } else if ($user->type == 'member') {
@@ -31,7 +33,8 @@ class LoginController extends Controller
             'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');
     }
-    public function logout(){
+    public function logout()
+    {
         Auth::logout();
         \request()->session()->invalidate();
         return redirect('/');

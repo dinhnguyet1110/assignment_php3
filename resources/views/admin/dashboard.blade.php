@@ -1,6 +1,7 @@
 @extends('admin/layouts/master')
-Dashboard
+
 @section('title')
+Dashboard
 @endsection
 
 @section('content')

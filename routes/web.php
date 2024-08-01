@@ -34,40 +34,27 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         return view('admin.dashboard');
     })->name('dashboard');
 
-        Route::prefix('category')
-            ->as('category.')
-            ->group(function () {
-                Route::get('index',             [CategoryController::class, 'index'])->name('index');
-                Route::get('create',            [CategoryController::class, 'create'])->name('create');
-                Route::post('store',            [CategoryController::class, 'store'])->name('store');
-                Route::get('{id}/edit',         [CategoryController::class, 'edit'])->name('edit');
-                Route::put('{id}/update',       [CategoryController::class, 'update'])->name('update');
-                Route::get('{id}/destroy',      [CategoryController::class, 'destroy'])->name('destroy');
+    $cruds = [
+        'category' =>   CategoryController::class,
+        'new' =>        NewController::class,
+        'user' =>       UserController::class,
+    ];
+    
+    foreach ($cruds as $route => $controller) {
+        Route::prefix($route)
+        ->as("$route")
+        ->controller($controller)
+        ->group(function() {
+            Route::get('index',                 'index')    ->name('index');
+            Route::get('create',                'create')   ->name('create');
+            Route::post('store',                'store')    ->name('store');
+            Route::get('{id}',                  'show')     ->name('show');
+            Route::get('{id}/edit',             'edit')     ->name('edit');
+            Route::put('{id}/update',           'update')   ->name('update');
+            Route::delete('{id}/destroy',       'destroy')  ->name('destroy');
+        });
+    }
 
-            });
-
-            Route::prefix('new')
-            ->as('new.')
-            ->group(function () {
-                Route::get('index',             [NewController::class, 'index'])->name('index');
-                Route::get('create',            [NewController::class, 'create'])->name('create');
-                Route::post('store',            [NewController::class, 'store'])->name('store');
-                Route::get('{id}/edit',         [NewController::class, 'edit'])->name('edit');
-                Route::put('{id}/update',       [NewController::class, 'update'])->name('update');
-                Route::get('{id}/destroy',      [NewController::class, 'destroy'])->name('destroy');
-
-            });
-            Route::prefix('user')
-            ->as('user.')
-            ->group(function () {
-                Route::get('index',             [UserController::class, 'index'])->name('index');
-                Route::get('create',            [UserController::class, 'create'])->name('create');
-                Route::post('store',            [UserController::class, 'store'])->name('store');
-                Route::get('{id}/edit',         [UserController::class, 'edit'])->name('edit');
-                Route::put('{id}/update',       [UserController::class, 'update'])->name('update');
-                Route::get('{id}/destroy',      [UserController::class, 'destroy'])->name('destroy');
-
-            });
 });
 
 Route::middleware(['auth', 'member'])->prefix('user')->name('user.')->group(function () {
@@ -84,10 +71,10 @@ Route::get('search', [NewController::class, 'search'])->name('search');
 Route::post('/news/{id}/comments', [CommentController::class, 'store'])->name('comment');
 
 
+
 Route::get('auth/login', [LoginController::class, 'showFormLogin'])->name('login');
 Route::post('auth/login', [LoginController::class, 'login']);
 Route::get('auth/logout', [LoginController::class, 'logout'])->name('logout');
-
 Route::get('auth/register', [RegisterController::class, 'showFormRegister'])->name('register');
 Route::post('auth/register', [RegisterController::class, 'register']);
 
