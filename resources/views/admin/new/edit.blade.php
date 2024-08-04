@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('title')
-   Cập nhật tin
+    Cập nhật tin
 @endsection
 
 @section('content')
@@ -20,7 +20,15 @@
             </div>
         </div>
     </div>
-
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <form action="{{ route('admin.new.update', $model->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
@@ -45,12 +53,19 @@
                                     </div>
                                     <div>
                                         <label for="image" class="form-label">Hình ảnh</label>
-                                        <input type="text"class="form-control" name="image" id="image"
-                                            value="{{ $model->image }}">
+                                        @if ($model->image)
+                                            <div>
+                                                <img src="{{ asset('storage/' . $model->image) }}" width="100px"
+                                                    height="100px" alt="Current Image">
+                                            </div>
+                                        @endif
+                                        <input type="file" class="form-control" name="image" id="image">
+                                        <small class="form-text text-muted">Chọn tệp mới</small>
                                     </div>
                                     <div>
                                         <label for="published_date" class="form-label">Ngày đăng</label>
-                                        <input type="text" class="form-control" name="published_date" id="published_date" value="{{ $model->published_date }}">
+                                        <input type="text" class="form-control" name="published_date" id="published_date"
+                                            value="{{ $model->published_date }}">
                                     </div>
                                     <div>
                                         <label for="category_id">Category</label>
@@ -84,14 +99,6 @@
         </div>
 
     </form>
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+
 
 @endsection

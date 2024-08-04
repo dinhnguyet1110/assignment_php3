@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\News;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,13 +15,10 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('news_id');
-            $table->unsignedBigInteger('user_id');
+            $table->foreignIdFor(News::class)->constrained();
+            $table->foreignIdFor(User::class)->constrained();
             $table->text('comment');
             $table->timestamps();
-
-            $table->foreign('news_id')->references('id')->on('news')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

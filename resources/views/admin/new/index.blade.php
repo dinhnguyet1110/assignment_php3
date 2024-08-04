@@ -22,7 +22,11 @@ Danh sách tin
         </div>
     </div>
 </div>
-<!-- end page title -->
+@if (session('success'))
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
+@endif
 
 <div class="row">
     <div class="col-lg-12">
@@ -51,7 +55,7 @@ Danh sách tin
                         <tr>
                             <td>{{ $item ->id }}</td>
                             <td>{{ $item->title}} </td>
-                            <td><img src="{{ $item->image}} " width="100px" height="100px"></td>
+                            <td><img src="{{ asset('storage/' . $item->image) }}" width="100px" height="100px" alt="Image"></td>
                             <td>{{ Str::limit($item->content, 50) }}</td>
                             <td>{{ $item->published_date }}</td>
                             <td>{{ $item->category ? $item->category->name : '' }}</td>

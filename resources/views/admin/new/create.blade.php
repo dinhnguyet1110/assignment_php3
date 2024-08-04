@@ -20,7 +20,15 @@
             </div>
         </div>
     </div>
-
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <form action="{{ route('admin.new.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
@@ -29,39 +37,42 @@
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Thông tin</h4>
-                    </div><!-- end card header -->
+                    </div>
                     <div class="card-body">
                         <div class="live-preview">
                             <div class="row gy-4">
-                                <div class="col-md-8">
+                                <div class="col-md-7">
                                     <div>
                                         <label for="title" class="form-label">Tiêu đề</label>
                                         <input type="text" class="form-control" name="title" id="title">
                                     </div>
                                     <div>
                                         <label for="content" class="form-label">Nội dung</label>
-                                        <textarea  rows="10"  class="form-control" name="content" id="content"></textarea>
+                                        <textarea rows="10" class="form-control" name="content" id="content"></textarea>
                                     </div>
                                     <div>
                                         <label for="image" class="form-label">Hình ảnh</label>
-                                        <input type="text"class="form-control" name="image" id="image">
+                                        <input type="file"class="form-control" name="image" id="image">
                                     </div>
                                     <div>
                                         <label for="published_date" class="form-label">Ngày đăng</label>
-                                        <input type="date" class="form-control" name="published_date" id="published_date">
+                                        <input type="date" class="form-control" name="published_date"
+                                            id="published_date">
                                     </div>
                                     <div>
                                         <label for="category_id">Loại tin</label>
                                         <select class="form-control" id="category_id" name="category_id" required>
                                             <option value="">Chọn loại tin</option>
                                             @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                                <option value="{{ $category->id }}"
+                                                    {{ old('category_id') == $category->id ? 'selected' : '' }}>
                                                     {{ $category->name }}
                                                 </option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
+
                             </div>
 
                             <div class="row">
@@ -72,24 +83,16 @@
                                         </div>
                                     </div>
                                 </div>
-                             
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-           
+
         </div>
 
     </form>
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+
 
 @endsection

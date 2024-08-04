@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class NewController extends Controller
 {
@@ -38,9 +39,15 @@ class NewController extends Controller
             'category_id' => 'required|exists:categories,id',
             'content' => 'required|string',
             'published_date' => 'required|date',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         ]);
-        News::create($request->all());
-        return redirect()->route('admin.new.index');
+        $data = $request->except('image');
+        if ($request->hasFile('image')) {
+            $data['image'] = Storage::put('news', $request->file('image'));
+        }
+
+        News::query()->create($data);
+        return redirect()->route('admin.new.index')->with('success', 'Tin đã được thêm mới thành công.');
     }
 
     public function edit(string $id)
@@ -52,26 +59,40 @@ class NewController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $news = News::findOrFail($id);
-
         $request->validate([
             'title' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'content' => 'required|string',
             'published_date' => 'required|date',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         ]);
 
-        $news->update($request->all());
+        $news = News::findOrFail($id);
+        $data = $request->except('image');
 
+        if ($request->hasFile('image')) {
+            if ($news->image) {
+                Storage::delete($news->image);
+            }
 
-        return redirect()->route('admin.new.index');
+            $data['image'] = Storage::put('news', $request->file('image'));
+        }
+
+        $news->update($data);
+        return redirect()->route('admin.new.index')->with('success', 'Tin đã được cập nhật thành công.');
     }
     public function destroy(string $id)
     {
         $news = News::findOrFail($id);
+
+        if ($news->image) {
+            if (Storage::exists('public/' . $news->image)) {
+                Storage::delete('public/' . $news->image);
+            }
+        }
         $news->delete();
 
-        return redirect()->route('admin.new.index');
+        return redirect()->route('admin.new.index')->with('success', 'Tin đã được Xóa thành công.');
     }
 
     // hiển thị tất cả

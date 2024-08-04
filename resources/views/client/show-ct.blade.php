@@ -8,7 +8,7 @@
         <div class="container">
             <h1 class="card-title mt-3 mb-3">{{ $news->title }}</h1>
             <div class="card mb-3">
-                <img src="{{ $news->image }}" class="card-img-top" alt="{{ $news->title }}">
+                <img src="{{ asset('storage/' . $news->image) }}" class="card-img-top" alt="{{ $news->title }}">
                 <div class="card-body">
                     <p class="card-text">{{ $news->content }}</p>
                     <p class="card-text"><small class="text-muted">Ngày đăng: {{ $news->published_date }}</small></p>

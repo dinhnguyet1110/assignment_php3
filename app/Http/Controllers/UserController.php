@@ -44,7 +44,7 @@ class UserController extends Controller
             'type' => $request->type,
         ]);
 
-        return redirect()->route('admin.user.index');
+        return redirect()->route('admin.user.index')->with('success', 'User được thêm mới thành công');
     }
 
 
@@ -71,7 +71,7 @@ class UserController extends Controller
             'type' => $request->type,
         ]);
     
-        return redirect()->route('admin.user.index')->with('success', 'User updated successfully.');
+        return redirect()->route('admin.user.index')->with('success', 'User được cập nhật thành công');
     }
     
 

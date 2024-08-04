@@ -43,7 +43,7 @@
                                     <div class="col-lg-4 mb-5">
                                         <article class="card">
                                             <div class="post-slider slider-sm">
-                                                <img src="{{ $item->image }}" class="card-img fixed-size-img" alt="{{ $item->title }}" class="card-img-top"
+                                                <img src="{{ asset('storage/' . $item->image) }}" class="card-img fixed-size-img" alt="{{ $item->title }}" class="card-img-top"
                                                     alt="post-thumb" >
                                             </div>
                 
